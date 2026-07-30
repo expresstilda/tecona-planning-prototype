@@ -535,9 +535,16 @@ p {
 
 .color-visual img {
   object-fit: cover;
+  animation: imageIn 0.35s ease both;
 }
 
-.color-chip {
+.color-visual.color-portrait img {
+  object-fit: contain;
+  background: #d9d5cc;
+}
+
+.color-main-label,
+.color-counter {
   position: absolute;
   padding: 10px 14px;
   background: rgba(247, 245, 240, 0.93);
@@ -547,19 +554,14 @@ p {
   letter-spacing: 0.08em;
 }
 
-.chip-one {
-  top: 17%;
-  left: 8%;
+.color-main-label {
+  left: 22px;
+  bottom: 22px;
 }
 
-.chip-two {
-  bottom: 35%;
-  left: 8%;
-}
-
-.chip-three {
-  bottom: 9%;
-  right: 7%;
+.color-counter {
+  top: 22px;
+  right: 22px;
 }
 
 .color-copy h2 {
@@ -588,6 +590,51 @@ p {
   width: 50px;
   color: rgba(43, 42, 40, 0.42);
   font-size: 11px;
+}
+
+.color-thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.color-thumbs button {
+  aspect-ratio: 1;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: var(--sand);
+  cursor: pointer;
+  opacity: 0.58;
+  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.color-thumbs button:hover,
+.color-thumbs button.active {
+  opacity: 1;
+}
+
+.color-thumbs button.active {
+  border-color: var(--green);
+  transform: translateY(-2px);
+}
+
+.color-thumbs img {
+  object-fit: cover;
+}
+
+.color-thumbs span {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  min-width: 19px;
+  padding: 3px 4px;
+  background: rgba(247, 245, 240, 0.88);
+  color: var(--ink);
+  font-size: 8px;
+  font-weight: 800;
 }
 
 .steps-section {
@@ -1075,6 +1122,12 @@ footer > div {
     min-height: 560px;
   }
 
+  .color-thumbs {
+    grid-template-columns: repeat(6, minmax(54px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
   .steps-section {
     padding-top: 90px;
     padding-bottom: 90px;
@@ -1140,6 +1193,16 @@ footer > div {
 
   .color-visual {
     min-height: 430px;
+  }
+
+  .color-main-label {
+    left: 14px;
+    bottom: 14px;
+  }
+
+  .color-counter {
+    top: 14px;
+    right: 14px;
   }
 
   .form-row {

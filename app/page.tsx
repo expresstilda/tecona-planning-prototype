@@ -34,8 +34,48 @@ const benefits = [
   ["Цвет и материал", "Сравниваете варианты обивки в одной и той же обстановке."],
 ];
 
+const colorShots = [
+  {
+    image: "/color-room-olive.jpg",
+    alt: "Оливковый диван и горчичные кресла в интерьере кафе",
+    label: "Оливковый + горчичный",
+    portrait: false,
+  },
+  {
+    image: "/color-room-yellow.jpg",
+    alt: "Горчичный диван и розовые кресла в интерьере кафе",
+    label: "Горчичный + розовый",
+    portrait: false,
+  },
+  {
+    image: "/color-palette-nine.jpg",
+    alt: "Девять вариантов цвета дивана в одном интерьере",
+    label: "9 оттенков дивана",
+    portrait: true,
+  },
+  {
+    image: "/color-palette-four.jpg",
+    alt: "Четыре варианта цвета дивана в одном интерьере",
+    label: "4 базовых оттенка",
+    portrait: true,
+  },
+  {
+    image: "/color-combinations.jpg",
+    alt: "Четыре сочетания цветов дивана и кресел",
+    label: "Диван + стулья",
+    portrait: false,
+  },
+  {
+    image: "/color-variants.jpg",
+    alt: "Сравнение цветовых вариантов мебели в одном интерьере",
+    label: "Два решения",
+    portrait: true,
+  },
+];
+
 export default function Home() {
   const [stage, setStage] = useState(1);
+  const [colorShot, setColorShot] = useState(0);
   const [sent, setSent] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -46,7 +86,7 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Tecona — на главную">
+        <a className="brand" href="#top" aria-label="Tecona, на главную">
           <Image src="/tecona-logo.svg" alt="Tecona" width={132} height={52} priority />
         </a>
         <nav className="desktop-nav" aria-label="Основная навигация">
@@ -71,11 +111,11 @@ export default function Home() {
         />
         <div className="hero-shade" />
         <div className="hero-content">
-          <div className="eyebrow light"><span /> Планировка и 3D — в подарок</div>
+          <div className="eyebrow light"><span /> Планировка и 3D в подарок</div>
           <h1>Увидьте будущий зал<br />до заказа мебели</h1>
           <p>
             По размерам помещения подготовим схему расстановки и
-            3D-визуализацию с мебелью Tecona — поможем оценить посадку,
+            3D-визуализацию с мебелью Tecona, поможем оценить посадку,
             проходы и цвета.
           </p>
           <div className="hero-actions">
@@ -100,7 +140,7 @@ export default function Home() {
       <section className="intro section" id="result">
         <div className="section-heading">
           <div className="eyebrow"><span /> Не просто подбор мебели</div>
-          <h2>От размеров помещения —<br />к понятному образу будущего зала</h2>
+          <h2>От размеров помещения<br />к понятному образу будущего зала</h2>
         </div>
         <div className="intro-copy">
           <p className="large-copy">
@@ -184,16 +224,16 @@ export default function Home() {
       </section>
 
       <section className="color-section section" id="process">
-        <div className="color-visual">
+        <div className={`color-visual ${colorShots[colorShot].portrait ? "color-portrait" : ""}`}>
           <Image
-            src="/color-variants.jpg"
-            alt="Сравнение цветовых вариантов мебели в одном интерьере"
+            key={colorShots[colorShot].image}
+            src={colorShots[colorShot].image}
+            alt={colorShots[colorShot].alt}
             fill
             sizes="(max-width: 900px) 100vw, 55vw"
           />
-          <div className="color-chip chip-one">шалфей</div>
-          <div className="color-chip chip-two">пыльная роза</div>
-          <div className="color-chip chip-three">горчица</div>
+          <div className="color-main-label">{colorShots[colorShot].label}</div>
+          <div className="color-counter">{String(colorShot + 1).padStart(2, "0")} / {String(colorShots.length).padStart(2, "0")}</div>
         </div>
         <div className="color-copy">
           <div className="eyebrow"><span /> Цвет без сомнений</div>
@@ -207,13 +247,27 @@ export default function Home() {
             <li><span>02</span> Показываем альтернативные сочетания</li>
             <li><span>03</span> Фиксируем выбранный вариант в заказе</li>
           </ul>
+          <div className="color-thumbs" aria-label="Примеры цветовых решений">
+            {colorShots.map((shot, index) => (
+              <button
+                className={colorShot === index ? "active" : ""}
+                key={shot.image}
+                onClick={() => setColorShot(index)}
+                aria-label={`Показать пример: ${shot.label}`}
+                aria-pressed={colorShot === index}
+              >
+                <Image src={shot.image} alt="" fill sizes="92px" />
+                <span>{String(index + 1).padStart(2, "0")}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="steps-section section">
         <div className="section-heading">
           <div className="eyebrow"><span /> Как это работает</div>
-          <h2>Отправьте план —<br />остальное сделаем вместе</h2>
+          <h2>Отправьте план.<br />Остальное сделаем вместе</h2>
         </div>
         <div className="steps-list">
           {[

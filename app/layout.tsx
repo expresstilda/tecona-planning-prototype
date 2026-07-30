@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
   const baseUrl = new URL(`${protocol}://${host}`);
-  const title = "Планировка и 3D-визуализация зала — Tecona";
+  const title = "Планировка и 3D-визуализация зала | Tecona";
   const description =
     "Планировка зала и 3D-визуализация с мебелью Tecona в подарок при комплектации проекта.";
 
