@@ -3,26 +3,29 @@
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const asset = (path: string) => `${BASE_PATH}${path}`;
+
 const stages = [
   {
     label: "01 · Схема",
     title: "Планируем расстановку",
     text: "Переносим размеры помещения в 2D, распределяем посадочные зоны и намечаем удобные проходы.",
-    image: "/plan-2d.png",
+    image: asset("/plan-2d.png"),
     alt: "Схема расстановки мебели в помещении",
   },
   {
     label: "02 · Объём",
     title: "Проверяем зал целиком",
     text: "Показываем пространство сверху: так проще оценить вместимость, логику зонирования и работу персонала.",
-    image: "/plan-3d.png",
+    image: asset("/plan-3d.png"),
     alt: "Трёхмерный план расстановки мебели",
   },
   {
     label: "03 · Атмосфера",
     title: "Показываем будущий интерьер",
     text: "Собираем наглядный ракурс с мебелью, светом и материалами, чтобы решение можно было увидеть до заказа.",
-    image: "/interior-3d.png",
+    image: asset("/interior-3d.png"),
     alt: "Визуализация интерьера с мебелью Tecona",
   },
 ];
@@ -36,37 +39,37 @@ const benefits = [
 
 const colorShots = [
   {
-    image: "/color-room-olive.jpg",
+    image: asset("/color-room-olive.jpg"),
     alt: "Оливковый диван и горчичные кресла в интерьере кафе",
     label: "Оливковый + горчичный",
     portrait: false,
   },
   {
-    image: "/color-room-yellow.jpg",
+    image: asset("/color-room-yellow.jpg"),
     alt: "Горчичный диван и розовые кресла в интерьере кафе",
     label: "Горчичный + розовый",
     portrait: false,
   },
   {
-    image: "/color-palette-nine.jpg",
+    image: asset("/color-palette-nine.jpg"),
     alt: "Девять вариантов цвета дивана в одном интерьере",
     label: "9 оттенков дивана",
     portrait: true,
   },
   {
-    image: "/color-palette-four.jpg",
+    image: asset("/color-palette-four.jpg"),
     alt: "Четыре варианта цвета дивана в одном интерьере",
     label: "4 базовых оттенка",
     portrait: true,
   },
   {
-    image: "/color-combinations.jpg",
+    image: asset("/color-combinations.jpg"),
     alt: "Четыре сочетания цветов дивана и кресел",
     label: "Диван + стулья",
     portrait: false,
   },
   {
-    image: "/color-variants.jpg",
+    image: asset("/color-variants.jpg"),
     alt: "Сравнение цветовых вариантов мебели в одном интерьере",
     label: "Два решения",
     portrait: true,
@@ -87,7 +90,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Tecona, на главную">
-          <Image src="/tecona-logo.svg" alt="Tecona" width={132} height={52} priority />
+          <Image src={asset("/tecona-logo.svg")} alt="Tecona" width={132} height={52} priority />
         </a>
         <nav className="desktop-nav" aria-label="Основная навигация">
           <a href="#result">Что получите</a>
@@ -103,7 +106,7 @@ export default function Home() {
       <section className="hero" id="top">
         <Image
           className="hero-image"
-          src="/interior-3d.png"
+          src={asset("/interior-3d.png")}
           alt="Будущий интерьер заведения с мебелью Tecona"
           fill
           priority
@@ -358,7 +361,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <Image src="/tecona-logo.svg" alt="Tecona" width={122} height={48} />
+        <Image src={asset("/tecona-logo.svg")} alt="Tecona" width={122} height={48} />
         <p>Мебель для ежедневного потока гостей</p>
         <div>
           <a href="https://tecona.ru/catalog/">Каталог</a>

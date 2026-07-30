@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -8,16 +7,11 @@ const manrope = Manrope({
   subsets: ["cyrillic", "latin"],
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host =
-    requestHeaders.get("x-forwarded-host") ??
-    requestHeaders.get("host") ??
-    "localhost:3000";
-  const protocol =
-    requestHeaders.get("x-forwarded-proto") ??
-    (host.startsWith("localhost") ? "http" : "https");
-  const baseUrl = new URL(`${protocol}://${host}`);
+export function generateMetadata(): Metadata {
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://tecona-planning-prototype.expresstilda.chatgpt.site/";
+  const baseUrl = new URL(siteUrl);
   const title = "Планировка и 3D-визуализация зала | Tecona";
   const description =
     "Планировка зала и 3D-визуализация с мебелью Tecona в подарок при комплектации проекта.";
@@ -37,6 +31,19 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       images: [new URL("/og.png", baseUrl).toString()],
+    },
+    robots: {
+      index: false,
+      follow: false,
+      nocache: true,
+      googleBot: {
+        index: false,
+        follow: false,
+        noimageindex: true,
+        "max-snippet": 0,
+        "max-image-preview": "none",
+        "max-video-preview": 0,
+      },
     },
   };
 }
